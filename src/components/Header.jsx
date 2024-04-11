@@ -6,11 +6,11 @@ const Header = () => {
     return (
         <div className={'shadow-sm border-b sticky top-0 bg-white z-30 p-3'}>
             <div className={'flex justify-between items-center max-w-6xl mx-auto'}>
-                <Link href={'/'} className={'lg:hidden '}>
+                <Link href={'/'} className={'lg:hidden hover:opacity-85'}>
                     <Image src={'/logo.jpg'} width={40} height={40}
                            alt={'/logo'}/>
                 </Link>
-                <Link href={'/'} className={'hidden lg:inline-flex'}>
+                <Link href={'/'} className={'hidden lg:inline-flex hover:opacity-85'}>
                     <Image src={'/name.png'} width={96} height={96}
                            alt={'/name'}/>
                 </Link>
