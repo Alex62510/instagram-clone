@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import Link from "next/link";
 import Image from 'next/image';
 import {signIn, useSession, signOut} from "next-auth/react";
@@ -12,8 +12,18 @@ import {AiOutlineClose} from "react-icons/ai";
 const Header = () => {
     const {data: session} = useSession()
     const [isOpen, setIsOpen] = useState(false)
+    const [selectedFile, setSelectedFile] = useState(null)
+    const [imageFileUrl, setImageFileUrl] = useState(null)
+    const filePickerRef = useRef(null)
 
-
+    const addImageToPost = (e) => {
+        const file = e.target.files[0]
+        if (file) {
+            setSelectedFile(file)
+            setImageFileUrl(URL.createObjectURL(file))
+        }
+    }
+    console.log(imageFileUrl)
     return (
         <div className={'shadow-sm border-b sticky top-0 bg-white z-30 p-3'}>
             <div className={'flex justify-between items-center max-w-6xl mx-auto'}>
@@ -50,7 +60,9 @@ const Header = () => {
                 >
                     <div
                         className={' flex flex-col justify-center items-center h-[100%]'}>
-                        <HiCamera className={'text-5xl text-gray-400 cursor-pointer'}/>
+                        <HiCamera onClick={()=>filePickerRef.current.click()} className={'text-5xl text-gray-400 cursor-pointer'}/>
+                        <input hidden ref={filePickerRef} type="file" accept={'image/*'}
+                               onChange={addImageToPost}/>
                     </div>
                     <input type="text" maxLength='150'
                            placeholder='Please enter you caption...'
