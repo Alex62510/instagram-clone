@@ -149,7 +149,7 @@ const Header = () => {
                     <button
                         disabled={!selectedFile ||caption.trim()===''||postUploading||imageFileUploading}
                         onClick={handleSubmit}
-                        className={'w-full p-2 bg-red-600 text-white shadow-md rounded-lg hover:brightness-110 disabled:bg-gray-200 disabled:cursor-not-allowed disabled:hover:brightness-100'}>Upload
+                        className={'animate-pulse w-full p-2 bg-red-600 text-white shadow-md rounded-lg hover:brightness-110 disabled:bg-gray-200 disabled:cursor-not-allowed disabled:hover:brightness-100'}>Upload
                         Post
                     </button>
                     <AiOutlineClose
