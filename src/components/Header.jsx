@@ -15,6 +15,7 @@ import {
     ref,
     uploadBytesResumable,
 } from 'firebase/storage'
+import {addDoc, collection, getFirestore,serverTimestamp} from 'firebase/firestore'
 
 const Header = () => {
     const {data: session} = useSession()
@@ -22,7 +23,10 @@ const Header = () => {
     const [selectedFile, setSelectedFile] = useState(null)
     const [imageFileUrl, setImageFileUrl] = useState(null)
     const [imageFileUploading, setImageFileUploading] = useState(false)
+    const [postUploading, setPostUploading] = useState(false)
     const filePickerRef = useRef(null)
+    const [caption, setCaption] = useState('')
+    const db = getFirestore(app)
 
     useEffect(() => {
         if (selectedFile) {
@@ -71,6 +75,20 @@ const Header = () => {
         setSelectedFile(null)
     }
     const onRequestCloseModal = () => {
+        setIsOpen(false)
+        setSelectedFile(null)
+    }
+
+    const handleSubmit = async () => {
+        setPostUploading(true)
+        const docRef = await addDoc(collection(db, 'posts'), {
+            username: session.user.username,
+            caption,
+            profileImage: session.user.image,
+            image: imageFileUrl,
+            timestamp: serverTimestamp()
+        })
+        setPostUploading(false)
         setIsOpen(false)
         setSelectedFile(null)
     }
@@ -125,9 +143,12 @@ const Header = () => {
                                onChange={addImageToPost}/>
                     </div>
                     <input type="text" maxLength='150'
+                           onChange={(e) => setCaption(e.target.value)}
                            placeholder='Please enter you caption...'
                            className={'m-4 border-none text-center w-full focus:ring-0 outline-none'}/>
                     <button
+                        disabled={!selectedFile ||caption.trim()===''||postUploading||imageFileUploading}
+                        onClick={handleSubmit}
                         className={'w-full p-2 bg-red-600 text-white shadow-md rounded-lg hover:brightness-110 disabled:bg-gray-200 disabled:cursor-not-allowed disabled:hover:brightness-100'}>Upload
                         Post
                     </button>
