@@ -1,6 +1,7 @@
 import React from 'react';
 import {app} from '@/firebase'
 import {collection, getFirestore, query,getDocs,orderBy} from "firebase/firestore";
+import Post from "@/components/Post";
 
 const Posts = async () => {
     const db = getFirestore(app)
@@ -13,7 +14,9 @@ const Posts = async () => {
     })
     return (
         <div>
-            Posts
+            {data.map((post)=>(
+                <Post key={post.id} post={post}/>
+            ))}
         </div>
     );
 };

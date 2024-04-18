@@ -6,7 +6,7 @@ import React from 'react';
 const MiniProfile = () => {
     const {data:session}=useSession()
     return (
-        <div className={'flex items-center justify-between mt-14 ml-10 scroll-ml-10'}>
+        <div className={'flex items-center justify-between mt-14 w-full ml-10'}>
             <img
                 className={'w-16 h-16 rounded-full border p-[2px]'}
                 src={session?.user?.image || "/logo.jpg"}

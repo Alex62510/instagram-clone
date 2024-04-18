@@ -91,6 +91,7 @@ const Header = () => {
         setPostUploading(false)
         setIsOpen(false)
         setSelectedFile(null)
+        location.reload()
     }
 
     return (
