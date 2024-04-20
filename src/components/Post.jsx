@@ -15,7 +15,7 @@ const Post = ({post}) => {
             <img src={post.image} alt={post.caption} className={'object-cover w-full'}/>
             <LikeSection id={post.id}/>
             <p className={'p-3 truncate'}>
-                <span className={'font-bold mr-2'}>{post.username}</span>
+                <span className={'font-semibold mr-2'}>{post.username}</span>
                 {post.caption}
             </p>
             <CommentSection id={post.id}/>
